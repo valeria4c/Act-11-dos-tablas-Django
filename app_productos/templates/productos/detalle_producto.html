@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block titulo %}Detalle Producto{% endblock %}
+
+{% block contenido %}
+<article class="detail">
+    <h2>{{ producto.nombre }}</h2>
+    <div class="detail-content">
+        <p><strong>ID Producto:</strong> {{ producto.id_producto }}</p>
+        <p><strong>Categoría:</strong> {{ producto.id_categoria.nombre }}</p>
+        <p><strong>Precio:</strong> ${{ producto.precio }}</p>
+        <p><strong>Stock:</strong> {{ producto.stock }} unidades</p>
+        {% if producto.descripcion %}
+        <p><strong>Descripción:</strong></p>
+        <p class="description">{{ producto.descripcion }}</p>
+        <p><strong>ID Detalle de Producto:</strong> {{ producto.id_detalle_de_producto }}</p>
+
+        {% endif %}
+        {% if producto.imagen_url %}
+        <div class="product-image-container">
+            <img src="{{ producto.imagen_url }}" alt="Imagen de {{ producto.nombre }}" class="product-image">
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="detail-actions">
+        <a href="{% url 'app_productos:listar_productos' %}" class="btn btn-secondary">Volver</a>
+        <a href="{% url 'app_productos:editar_producto' producto.id_producto %}" class="btn btn-edit">Editar</a>
+        <a href="{% url 'app_productos:eliminar_producto' producto.id_producto %}" class="btn btn-danger">Borrar</a>
+    </div>
+</article>
+{% endblock %}

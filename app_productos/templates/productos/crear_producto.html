@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block titulo %}Crear Producto{% endblock %}
+
+{% block contenido %}
+<h2>Agregar Producto</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar</button>
+    <a href="{% url 'app_productos:listar_productos' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

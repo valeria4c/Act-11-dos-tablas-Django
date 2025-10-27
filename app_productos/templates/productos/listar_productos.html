@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block titulo %}Productos{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Productos del Spa</h2>
+    <div>
+        <a href="{% url 'app_productos:crear_producto' %}" class="btn btn-primary">+ Nuevo Producto</a>
+        <a href="{% url 'app_productos:listar_categorias' %}" class="btn btn-secondary">Ver Categorías</a>
+    </div>
+</div>
+
+<div class="list-grid">
+    {% for producto in productos %}
+    <article class="card">
+        <div class="card-body" style="display:flex;gap:1rem;align-items:center;">
+            <div class="thumb">
+                {% if producto.imagen_url %}
+                    <img src="{{ producto.imagen_url }}" alt="{{ producto.nombre }}" class="item-img">
+                {% else %}
+                    <div class="item-placeholder">Sin imagen</div>
+                {% endif %}
+            </div>
+
+            <div style="flex:1">
+                <div class="card-title">{{ producto.nombre }}</div>
+                <div class="card-meta">
+                    <div><strong>Precio:</strong> ${{ producto.precio }}</div>
+                    <div><strong>Stock:</strong> {{ producto.stock }}</div>
+                    <div><strong>Categoría:</strong> {{ producto.id_categoria.nombre }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-actions">
+            <a href="{% url 'app_productos:editar_producto' producto.id_producto %}" class="btn btn-sm btn-edit">Editar</a>
+            <a href="{% url 'app_productos:eliminar_producto' producto.id_producto %}" class="btn btn-sm btn-danger">Borrar</a>
+            <a href="{% url 'app_productos:detalle_producto' producto.id_producto %}" class="btn btn-sm btn-secondary">Detalles</a>
+        </div>
+    </article>
+    {% empty %}
+    <div class="empty-message">No hay productos registrados.</div>
+    {% endfor %}
+</div>
+{% endblock %}

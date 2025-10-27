@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Categorías{% endblock %}
+
+{% block contenido %}
+<div class="page-header">
+    <h2>Categorías</h2>
+    <a href="{% url 'app_productos:crear_categoria' %}" class="btn btn-primary">+ Nueva Categoría</a>
+</div>
+
+<div class="list-grid">
+    {% for categoria in categorias %}
+    <article class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ categoria.nombre }}</h3>
+            <p><strong>Descripción:</strong> {{ categoria.descripcion }}</p>
+            <p><strong>Creado el:</strong> {{ categoria.fecha_creacion|date:"d/m/Y H:i" }}</p>
+            <p><strong>Activa:</strong> {% if categoria.activa %}Sí{% else %}No{% endif %}</p>
+            <p><strong>ID Categoría:</strong> {{ categoria.id_categoria }}</p>
+
+        </div>
+        <div class="card-actions">
+            <a href="{% url 'app_productos:editar_categoria' categoria.id_categoria %}" class="btn btn-sm btn-edit">Editar</a>
+            <a href="{% url 'app_productos:eliminar_categoria' categoria.id_categoria %}" class="btn btn-sm btn-danger">Eliminar</a>
+            <a href="{% url 'app_productos:detalle_categoria' categoria.id_categoria %}" class="btn btn-sm btn-secondary">Detalles</a>
+        </div>
+    </article>
+    {% empty %}
+    <div class="empty-message">No hay categorías registradas.</div>
+    {% endfor %}
+</div>
+{% endblock %}
